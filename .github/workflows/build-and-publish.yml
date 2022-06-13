@@ -1,9 +1,9 @@
 name: Build and Publish
 
 on:
-  push:
-    branches: [master]
-  pull_request:
+  create:
+    tags:
+      - *
 
 jobs:
   build-and-publish-container-image:
@@ -27,7 +27,7 @@ jobs:
           # relative path to the place where source code with Dockerfile is located
           context: ./
           tags: |
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
           push: true
 
       - name: Image digest
